@@ -1,4 +1,5 @@
 import Tkinter as tk
+import screen_capture as sc
  
 def showxy(event):
     xm, ym = event.x, event.y
@@ -12,16 +13,19 @@ def showxy(event):
     #              if abs(xm - x) < delta and abs(ym - y) < delta
     #              else 'yellow')
 
-def set_center(event):
-	sx = str(event.x)
-	sy = str(event.y)
-	root.geometry('+' + sx + '+' + sy)
+
+
+# def set_center(event):
+# 	sx = str(event.x)
+# 	sy = str(event.y)
+# 	root.geometry('+' + sx + '+' + sy)
  
-root = tk.Tk()
-root.attributes('-alpha', 0.1)
-frame = tk.Frame(root, bg= '', width=500, height=500)
-#frame.bind("<Motion>", showxy)
-frame.bind("<Motion>", set_center)
-frame.pack()
- 
-root.mainloop()
+
+if __name__ == '__main__':
+    root = tk.Tk()
+    root.attributes('-alpha', 0.5)
+    frame = tk.Frame(root, bg= '', width=1440, height=900)
+    frame.bind("<Motion>", showxy)
+    frame.bind("Button-1", showxy)
+    frame.pack()
+    root.mainloop()
