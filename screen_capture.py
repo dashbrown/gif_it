@@ -1,15 +1,8 @@
 # Simple capture image and convert to gif tool
 
 from PIL import Image, ImageSequence
-import os, sys, subprocess
+import os, sys, subprocess, time
 # from images2gif import writeGif
-
-# os.system("screencapture my_screen.png")
-# image = Image.open("my_screen.png")
-# new_image = image.crop((200,200,400,400))
-# new_image.show()
-
-
 
 """Takes a screenshot of the entire screen"""
 def capture_screen():
@@ -36,6 +29,7 @@ def crop_image(image, x, y):
     down = y + 128
     return image.crop((left, up, right, down))
 
+
 """Returns a tuple of the coordinates of the mouse in the form (x,y)"""
 def get_mouse_coords():
     location = subprocess.check_output(['./MouseTools', '-location'])
@@ -46,16 +40,12 @@ def get_mouse_coords():
     return x,y
 
 
-#for testing
+"""Take screenshots centered around the mouse cursor"""
 def main():
-    screen = capture_screen()
-    image_list = across_screen(screen, [])
-    # writeGif("my_gif.GIF", image_list, duration = 0.5)
-
-    sc = 0
-    while sc < 10:
-        image_list[sc].save("img" + str(sc) + ".png")
-        sc += 1
+    t0 = time.time()
+    while time.time() - t0 < 5:
+        x,y = get_mouse_coords()
+        screen_shot(str(time.time()), x, y)
 
 if __name__ == '__main__':
     main()
