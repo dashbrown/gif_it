@@ -49,14 +49,18 @@ def main():
     while time.time() - t0 < 5:
         x, y = get_mouse_coords()
         screen_shot(str(i), x, y)
+        print i
         i += 1
 
+
+"""Threaded function"""
 def two(s, l):
     t = time.time()
     while time.time() - 2 < t:
         l[0] += 1
     #print s,l[0]
 
+"""TEst to see how much performance we get out of threading"""
 def thread_two():
     import thread
     t = time.time()
@@ -71,6 +75,15 @@ def thread_two():
     while time.time() - t < 3:
         pass
     print l1[0] + l2[0] + l3[0] + l4[0]
+
+"""Offers no performance increase"""
+def thread_ss():
+    import thread
+    t = time.time()
+    thread.start_new_thread(main, ())
+    #thread.start_new_thread(main, ())
+    while time.time() - t < 5:
+        pass
     
 
 
@@ -79,4 +92,5 @@ def thread_two():
 if __name__ == '__main__':
     main()
     # thread_two()
+    # thread_ss()
 
