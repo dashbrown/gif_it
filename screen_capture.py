@@ -5,9 +5,9 @@ import os, sys, subprocess, time
 # from images2gif import writeGif
 
 """Takes a screenshot of the entire screen"""
-def capture_screen():
-    os.system("screencapture my_screen.png")
-    return Image.open("my_screen.png")
+def capture_screen(n):
+    os.system("screencapture my_screen" + str(n) + ".png")
+    return Image.open("my_screen" + str(n) + ".png")
 
 
 """Takes a 512x256 screenshot centered at x,y. 
@@ -43,10 +43,40 @@ def get_mouse_coords():
 """Take screenshots centered around the mouse cursor"""
 def main():
     t0 = time.time()
+    # screen_list = []
+    # mouse_list = []
+    i = 0
     while time.time() - t0 < 5:
-        x,y = get_mouse_coords()
-        screen_shot(str(time.time()), x, y)
+        x, y = get_mouse_coords()
+        screen_shot(str(i), x, y)
+        i += 1
+
+def two(s, l):
+    t = time.time()
+    while time.time() - 2 < t:
+        l[0] += 1
+    #print s,l[0]
+
+def thread_two():
+    import thread
+    t = time.time()
+    l1 = [0]
+    l2 = [0]
+    l3 = [0]
+    l4 = [0]
+    thread.start_new_thread(two, ("one",l1))
+    thread.start_new_thread(two, ("two",l2))
+    thread.start_new_thread(two, ("three",l3))
+    thread.start_new_thread(two, ("four",l4))
+    while time.time() - t < 3:
+        pass
+    print l1[0] + l2[0] + l3[0] + l4[0]
+    
+
+
+
 
 if __name__ == '__main__':
     main()
+    # thread_two()
 
